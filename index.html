@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Neighbourhood Intelligence — Mumbai</title>
+
+    <meta name="description"
+        content="Interactive neighbourhood planning intelligence for Mumbai.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Papa Parse -->
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+    <!-- Leaflet Map -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+
+</head>
+
+
+<body>
+
+    <div class="noise"></div>
+
+    <div class="app-shell">
+
+
+        <!-- =====================================================
+             SIDEBAR
+        ====================================================== -->
+
+        <aside class="sidebar">
+
+            <a class="brand" href="#dashboard">
+
+                <div class="brand-mark">
+                    NI
+                </div>
+
+                <div>
+
+                    <div class="brand-name">
+                        Neighbourhood
+                    </div>
+
+                    <div class="brand-sub">
+                        INTELLIGENCE / MUMBAI
+                    </div>
+
+                </div>
+
+            </a>
+
+
+            <div class="side-label">
+                EXPLORE THE CITY
+            </div>
+
+
+            <nav class="side-nav" id="sideNav">
+
+                <button class="nav-item active" data-target="dashboard">
+                    <span>01</span>
+                    Overview
+                </button>
+
+                <button class="nav-item" data-target="explore">
+                    <span>02</span>
+                    Explore
+                </button>
+
+                <button class="nav-item" data-target="compare">
+                    <span>03</span>
+                    Compare
+                </button>
+
+                <button class="nav-item" data-target="map">
+                    <span>04</span>
+                    Priority Map
+                </button>
+
+                <button class="nav-item" data-target="analysis">
+                    <span>05</span>
+                    Deep Analysis
+                </button>
+
+                <button class="nav-item" data-target="insights">
+                    <span>06</span>
+                    Insights
+                </button>
+
+                <button class="nav-item" data-target="method">
+                    <span>07</span>
+                    Method
+                </button>
+
+            </nav>
+
+
+            <!-- Planning Lens -->
+
+            <div class="sidebar-note">
+
+                <div class="mini-kicker">
+                    PLANNING LENS
+                </div>
+
+                <p>
+                    Understand each neighbourhood through
+                    population, growth, services and demand.
+                </p>
+
+            </div>
+
+        </aside>
+
+
+
+        <!-- =====================================================
+             MAIN CONTENT
+        ====================================================== -->
+
+        <main class="main-content">
+
+
+            <!-- TOP BAR -->
+
+            <header class="topbar">
+
+                <div class="breadcrumb">
+                    MUMBAI / URBAN ANALYTICS
+                </div>
+
+                <div class="data-status">
+
+                    <span class="status-dot"></span>
+
+                    <span id="dataStatus">
+                        Loading planning data
+                    </span>
+
+                </div>
+
+            </header>
+
+
+
+            <!-- =====================================================
+                 OVERVIEW
+            ====================================================== -->
+
+            <section
+                class="hero section-block"
+                id="dashboard">
+
+
+                <div class="hero-copy">
+
+                    <div class="eyebrow">
+                        NEIGHBOURHOOD INTELLIGENCE
+                        <span>01</span>
+                    </div>
+
+
+                    <h1>
+                        Read the city
+                        <br>
+                        <em>before it changes.</em>
+                    </h1>
+
+
+                    <p>
+                        Interactive planning intelligence for 24 Mumbai
+                        neighbourhoods — revealing where population,
+                        growth and service conditions create the greatest
+                        planning pressure.
+                    </p>
+
+
+                    <div class="hero-actions">
+
+                        <button
+                            class="primary-btn"
+                            data-scroll="explore">
+
+                            Explore a neighbourhood
+
+                            <span>↗</span>
+
+                        </button>
+
+
+                        <button
+                            class="text-btn"
+                            data-scroll="insights">
+
+                            Read the findings
+
+                            <span>→</span>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Hero visual -->
+
+                      <!-- =================================================
+                 NEW HERO VISUAL
+                 Replaces the old empty #1 graphic
+            ================================================== -->
+
+            <div class="hero-art">
+<div class="hero-art">
+    <img
+        src="https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=85"
+        alt="Mumbai cityscape"
+    >
+
+    <div class="hero-image-overlay">
+        <span>MUMBAI</span>
+        <small>URBAN NEIGHBOURHOODS</small>
+    </div>
+</div>
+
+
+        </section>
+
+
+          
+
+
+
+            <!-- =====================================================
+                 CITY SNAPSHOT
+            ====================================================== -->
+
+            <section class="section-block snapshot">
+
+                <div class="section-head compact">
+
+                    <div>
+
+                        <div class="eyebrow">
+                            CITY SNAPSHOT
+                        </div>
+
+                        <h2>
+                            The city in six signals.
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="metric-grid"
+                    id="metricGrid">
+                </div>
+
+            </section>
+
+
+
+            <!-- =====================================================
+                 OVERVIEW ANALYTICS
+            ====================================================== -->
+
+            <section class="section-block analytics-section">
+
+                <div class="section-head">
+
+                    <div>
+
+                        <div class="eyebrow">
+                            01 / OVERVIEW
+                        </div>
+
+                        <h2>
+                            Pressure is uneven.
+                        </h2>
+
+                        <p>
+                            Six views show where planning pressure
+                            is concentrated across Mumbai.
+                        </p>
+
+                    </div>
+
+
+                    <div class="filter-row">
+
+                        <label>
+
+                            View
+
+                            <select id="priorityFilter">
+
+                                <option value="all">
+                                    All neighbourhoods
+                                </option>
+
+                                <option value="top10">
+                                    Top 10 priority
+                                </option>
+
+                                <option value="service">
+                                    Largest service gaps
+                                </option>
+
+                                <option value="growth">
+                                    Highest growth
+                                </option>
+
+                            </select>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="chart-grid">
+
+
+                    <!-- A -->
+
+                    <article class="chart-card wide">
+
+                        <div class="chart-title">
+
+                            <div>
+
+                                <span class="chart-index">
+                                    A
+                                </span>
+
+                                <h3>
+                                    Planning priority ranking
+                                </h3>
+
+                                <p>
+                                    Neighbourhoods ranked by planning priority.
+                                </p>
+
+                            </div>
+
+                            <span class="chart-note">
+                                TOP 10
+                            </span>
+
+                        </div>
+
+
+                        <div class="chart-wrap tall">
+
+                            <canvas id="priorityChart"></canvas>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- B -->
+
+                    <article class="chart-card">
+
+                        <div class="chart-title">
+
+                            <div>
+
+                                <span class="chart-index">
+                                    B
+                                </span>
+
+                                <h3>
+                                    Growth pulse
+                                </h3>
+
+                                <p>
+                                    Predicted growth across neighbourhoods.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="chart-wrap">
+
+                            <canvas id="growthChart"></canvas>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- C -->
+
+                    <article class="chart-card">
+
+                        <div class="chart-title">
+
+                            <div>
+
+                                <span class="chart-index">
+                                    C
+                                </span>
+
+                                <h3>
+                                    Population × service gap
+                                </h3>
+
+                                <p>
+                                    Population pressure compared with
+                                    service gap.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="chart-wrap pressure-chart-wrap">
+
+    <canvas id="pressureChart"></canvas>
+
+</div>
+
+                    </article>
+
+
+
+                    <!-- D -->
+
+                    <article class="chart-card">
+
+                        <div class="chart-title">
+
+                            <div>
+
+                                <span class="chart-index">
+                                    D
+                                </span>
+
+                                <h3>
+                                    Planning typologies
+                                </h3>
+
+                                <p>
+                                    Main planning profiles in the dataset.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="chart-wrap donut">
+
+                            <canvas id="typologyChart"></canvas>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- E -->
+
+                    <article class="chart-card wide">
+
+                        <div class="chart-title">
+
+                            <div>
+
+                                <span class="chart-index">
+                                    E
+                                </span>
+
+                                <h3>
+                                    Population now vs forecast
+                                </h3>
+
+                                <p>
+                                    Current population compared with
+                                    predicted population.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="chart-wrap tall">
+
+                            <canvas id="populationChart"></canvas>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- F -->
+
+                    <article class="chart-card">
+
+                        <div class="chart-title">
+
+                            <div>
+
+                                <span class="chart-index">
+                                    F
+                                </span>
+
+                                <h3>
+                                    Demand pressure
+                                </h3>
+
+                                <p>
+                                    Areas with stronger demand pressure.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="chart-wrap">
+
+                            <canvas id="demandChart"></canvas>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =====================================================
+                 EXPLORE
+            ====================================================== -->
+
+            <section
+                class="section-block explore-section"
+                id="explore">
+
+
+                <div class="section-head">
+
+                    <div>
+
+                        <div class="eyebrow">
+                            02 / EXPLORE
+                        </div>
+
+                        <h2>
+                            Open a neighbourhood profile.
+                        </h2>
+
+                        <p>
+                            Select an area to understand its
+                            population, services and planning pressure.
+                        </p>
+
+                    </div>
+
+
+                    <label class="select-large">
+
+                        Neighbourhood
+
+                        <select id="neighbourhoodSelect"></select>
+
+                    </label>
+
+                </div>
+
+
+                <div
+                    id="profilePanel"
+                    class="profile-panel">
+                </div>
+
+            </section>
+
+
+
+            <!-- =====================================================
+                 COMPARE
+            ====================================================== -->
+
+            <section
+                class="section-block compare-section"
+                id="compare">
+
+
+                <div class="section-head">
+
+                    <div>
+
+                        <div class="eyebrow">
+                            03 / COMPARE
+                        </div>
+
+                        <h2>
+                            Same city. Different pressure.
+                        </h2>
+
+                        <p>
+                            Compare two neighbourhoods using
+                            the same indicators.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="compare-controls">
+
+                    <label>
+
+                        Area A
+
+                        <select id="compareA"></select>
+
+                    </label>
+
+
+                    <div class="vs">
+                        VS
+                    </div>
+
+
+                    <label>
+
+                        Area B
+
+                        <select id="compareB"></select>
+
+                    </label>
+
+                </div>
+
+
+                <div
+                    id="comparisonPanel"
+                    class="comparison-panel">
+                </div>
+
+            </section>
+
+
+
+            <!-- =====================================================
+                 PRIORITY MAP
+            ====================================================== -->
+
+            <section
+                class="section-block map-section"
+                id="map">
+
+
+                <div class="section-head">
+
+                    <div>
+
+                        <div class="eyebrow">
+                            04 / PRIORITY MAP
+                        </div>
+
+                        <h2>
+                            Where should attention move first?
+                        </h2>
+
+                        <p>
+                            An indicative map view of neighbourhood
+                            planning priority across Mumbai.
+                        </p>
+
+                    </div>
+
+
+                    <div class="legend">
+
+                        <span>
+                            <i class="dot high"></i>
+                            High
+                        </span>
+
+                        <span>
+                            <i class="dot medium"></i>
+                            Moderate
+                        </span>
+
+                        <span>
+                            <i class="dot low"></i>
+                            Lower
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="real-map-wrapper">
+
+                    <div
+                        id="planningMap">
+                    </div>
+
+                    <div class="map-disclaimer">
+                        Indicative neighbourhood locations
+                    </div>
+
+                </div>
+
+
+                <div class="map-side">
+
+                    <div class="mini-kicker">
+                        TOP PRIORITIES
+                    </div>
+
+                    <div id="mapRanking"></div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =====================================================
+                 DEEP ANALYSIS
+            ====================================================== -->
+
+            <section
+                class="section-block analysis-section"
+                id="analysis">
+
+
+                <div class="section-head">
+
+                    <div>
+
+                        <div class="eyebrow">
+                            05 / DEEP ANALYSIS
+                        </div>
+
+                        <h2>
+                            Look underneath the ranking.
+                        </h2>
+
+                        <p>
+                            Explore the indicators behind the planning results.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="analysis-grid">
+
+
+                    <!-- Pressure Matrix -->
+
+                    <article class="analysis-card feature">
+
+                        <div class="mini-kicker">
+                            PRESSURE MATRIX
+                        </div>
+
+                        <h3>
+                            Population pressure × service gap
+                        </h3>
+
+                        <p>
+                            This separates areas with high pressure
+                            from areas with stronger existing services.
+                        </p>
+
+
+                        <div
+                            class="matrix"
+                            id="matrix">
+
+
+                            <div class="matrix-label y">
+                                SERVICE GAP ↑
+                            </div>
+
+
+                            <div class="matrix-label x">
+                                POPULATION PRESSURE →
+                            </div>
+
+
+                            <div class="quadrant q1">
+
+                                <b>
+                                    Priority Watch
+                                </b>
+
+                                <span>
+                                    High pressure + high gap
+                                </span>
+
+                            </div>
+
+
+                            <div class="quadrant q2">
+
+                                <b>
+                                    Capacity Zone
+                                </b>
+
+                                <span>
+                                    High pressure + lower gap
+                                </span>
+
+                            </div>
+
+
+                            <div class="quadrant q3">
+
+                                <b>
+                                    Service Watch
+                                </b>
+
+                                <span>
+                                    Lower pressure + high gap
+                                </span>
+
+                            </div>
+
+
+                            <div class="quadrant q4">
+
+                                <b>
+                                    Balanced
+                                </b>
+
+                                <span>
+                                    Lower pressure + lower gap
+                                </span>
+
+                            </div>
+
+
+                            <div id="matrixDots"></div>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- Amenity -->
+
+                    <article class="analysis-card">
+
+                        <div class="mini-kicker">
+                            CITY AMENITY BASE
+                        </div>
+
+                        <h3>
+                            Average facility profile
+                        </h3>
+
+                        <p>
+                            Average strength of the main amenity categories.
+                        </p>
+
+
+                        <div
+                            class="amenity-list"
+                            id="amenityAverages">
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- Service -->
+
+                    <article class="analysis-card">
+
+                        <div class="mini-kicker">
+                            SERVICE SIGNAL
+                        </div>
+
+                        <h3>
+                            Where is the gap concentrated?
+                        </h3>
+
+
+                        <div
+                            id="serviceLeaders"
+                            class="leader-list">
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- Growth -->
+
+                    <article class="analysis-card">
+
+                        <div class="mini-kicker">
+                            GROWTH SIGNAL
+                        </div>
+
+                        <h3>
+                            Fastest predicted growth
+                        </h3>
+
+
+                        <div
+                            id="growthLeaders"
+                            class="leader-list">
+                        </div>
+
+                    </article>
+
+                </div>
+
+
+
+                <!-- DATA VIEW -->
+
+                <div class="data-table-card">
+
+                    <div class="table-head">
+
+                        <div>
+
+                            <div class="mini-kicker">
+                                DATA VIEW
+                            </div>
+
+                            <h3>
+                                Neighbourhood planning table
+                            </h3>
+
+                            <p>
+                                Sort and scan the core indicators
+                                behind the dashboard.
+                            </p>
+
+                        </div>
+
+
+                        <input
+                            id="tableSearch"
+                            placeholder="Search neighbourhood…">
+
+                    </div>
+
+
+                    <div class="table-scroll">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Neighbourhood</th>
+                                    <th>Population</th>
+                                    <th>Growth</th>
+                                    <th>Service gap</th>
+                                    <th>Demand</th>
+                                    <th>Priority</th>
+                                    <th>Rank</th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody id="dataTable"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =====================================================
+                 INSIGHTS
+            ====================================================== -->
+
+            <section
+                class="section-block insights-section"
+                id="insights">
+
+
+                <div class="section-head">
+
+                    <div>
+
+                        <div class="eyebrow">
+                            06 / INSIGHTS
+                        </div>
+
+                        <h2>
+                            What the data is saying.
+                        </h2>
+
+                        <p>
+                            Key findings from the neighbourhood analysis.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="insight-grid"
+                    id="insightGrid">
+                </div>
+
+
+                <div class="closing-story">
+
+                    <div class="eyebrow">
+                        THE PLANNING LOGIC
+                    </div>
+
+
+                    <div class="story-flow">
+
+                        <span>Population</span>
+
+                        <b>→</b>
+
+                        <span>Growth</span>
+
+                        <b>→</b>
+
+                        <span>Amenities</span>
+
+                        <b>→</b>
+
+                        <span>Service Gap</span>
+
+                        <b>→</b>
+
+                        <span>Demand</span>
+
+                        <b>→</b>
+
+                        <strong>Priority</strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =====================================================
+                 METHOD
+            ====================================================== -->
+
+            <section
+                class="section-block method-section"
+                id="method">
+
+
+                <div class="section-head">
+
+                    <div>
+
+                        <div class="eyebrow">
+                            07 / METHOD
+                        </div>
+
+                        <h2>
+                            How the dashboard thinks.
+                        </h2>
+
+                        <p>
+                            A simple view of how the analysis moves
+                            from data to planning priority.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="method-grid">
+
+
+                    <div class="method-step">
+
+                        <span>01</span>
+
+                        <h3>
+                            Population
+                        </h3>
+
+                        <p>
+                            Current population gives the starting
+                            point for understanding pressure.
+                        </p>
+
+                    </div>
+
+
+                    <div class="method-step">
+
+                        <span>02</span>
+
+                        <h3>
+                            Forecast
+                        </h3>
+
+                        <p>
+                            Predicted growth shows how the area
+                            may change in the future.
+                        </p>
+
+                    </div>
+
+
+                    <div class="method-step">
+
+                        <span>03</span>
+
+                        <h3>
+                            Amenities
+                        </h3>
+
+                        <p>
+                            Healthcare, education, food, finance,
+                            green spaces, hospitality, transit,
+                            shopping and business are considered.
+                        </p>
+
+                    </div>
+
+
+                    <div class="method-step">
+
+                        <span>04</span>
+
+                        <h3>
+                            Pressure
+                        </h3>
+
+                        <p>
+                            Population, growth, service gap and
+                            demand indicators show where pressure exists.
+                        </p>
+
+                    </div>
+
+
+                    <div class="method-step">
+
+                        <span>05</span>
+
+                        <h3>
+                            Priority
+                        </h3>
+
+                        <p>
+                            The supplied Planning Priority Score
+                            and Planning Rank give the final ranking.
+                        </p>
+
+                    </div>
+
+
+                    <div class="method-step">
+
+                        <span>06</span>
+
+                        <h3>
+                            Decision
+                        </h3>
+
+                        <p>
+                            The results are converted into simple
+                            planning interpretations.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="method-note">
+
+                    <strong>
+                        Important:
+                    </strong>
+
+                    This dashboard is based on the supplied
+                    project dataset and is intended for academic
+                    analysis and planning interpretation.
+
+                </div>
+
+            </section>
+
+
+
+            <!-- FOOTER -->
+
+            <footer class="footer">
+
+                <div>
+
+                    <strong>
+                        NEIGHBOURHOOD INTELLIGENCE
+                    </strong>
+
+                    <span>
+                        Data-driven urban planning for Mumbai.
+                    </span>
+
+                </div>
+
+
+                <div>
+                    Interactive Analytics
+                </div>
+
+            </footer>
+
+        </main>
+
+    </div>
+
+
+
+    <!-- Leaflet JS -->
+
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+    </script>
+
+
+    <!-- Main JavaScript -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
